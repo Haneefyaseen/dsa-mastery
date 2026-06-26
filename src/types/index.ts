@@ -74,6 +74,32 @@ export interface StudyPlan {
   weeks: StudyWeek[];
 }
 
+export interface SystemDesignWeek {
+  week: number;
+  title: string;
+  topics: string[];
+  goals: string[];
+  designProblems: string[];
+  keyConcepts: string[];
+}
+
+export interface SystemDesignPlan {
+  id: string;
+  name: string;
+  duration: string;
+  description: string;
+  weeks: SystemDesignWeek[];
+}
+
+export interface InterviewQuestion {
+  id: string;
+  company: string;
+  category: "behavioral" | "coding" | "system-design" | "technical";
+  question: string;
+  tips: string;
+  frequency: "high" | "medium";
+}
+
 export interface UserProgress {
   problems: Record<string, ProblemStatus>;
   notes: Record<string, string>;

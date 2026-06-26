@@ -108,7 +108,7 @@ export default function StudyPlanPage() {
                         return (
                           <Link
                             key={pid}
-                            href={`/problems/${pid}`}
+                            href={`/problems/${pid}?plan=${plan.id}&week=${week.week}`}
                             className="flex items-center justify-between rounded-lg border border-border bg-background px-4 py-3 text-sm transition-colors hover:border-accent/40"
                           >
                             <span>{problem.title}</span>

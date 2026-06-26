@@ -243,6 +243,57 @@ export const topics: Topic[] = [
     timeToMaster: "2-3 days",
     problemIds: ["single-number", "number-of-1-bits", "counting-bits", "reverse-bits", "missing-number"],
   },
+  {
+    id: "trie",
+    name: "Trie (Prefix Tree)",
+    slug: "trie",
+    description:
+      "Tree structure for efficient string prefix operations. Essential for autocomplete, word search, and dictionary problems at top companies.",
+    icon: "🔤",
+    order: 15,
+    keyConcepts: [
+      "Prefix tree structure",
+      "Insert / search / startsWith",
+      "Wildcard search with DFS",
+      "Trie + backtracking on grids",
+    ],
+    timeToMaster: "3-4 days",
+    problemIds: ["implement-trie", "design-add-search-word", "word-search-ii"],
+  },
+  {
+    id: "design",
+    name: "Design & OOP",
+    slug: "design",
+    description:
+      "Design data structures with efficient operations. Frequently asked at Amazon, Google, and Meta for mid-level roles.",
+    icon: "🏗️",
+    order: 16,
+    keyConcepts: [
+      "LRU Cache (hash map + linked list)",
+      "Min stack / queue with stacks",
+      "Time-based key-value store",
+      "Hit counter / streaming data",
+    ],
+    timeToMaster: "1 week",
+    problemIds: ["lru-cache", "min-stack", "implement-queue-stacks", "design-hit-counter", "time-based-key-value", "design-twitter"],
+  },
+  {
+    id: "union-find",
+    name: "Union-Find",
+    slug: "union-find",
+    description:
+      "Disjoint set union for tracking connected components. Key for graph connectivity, cycle detection, and clustering.",
+    icon: "🔗",
+    order: 17,
+    keyConcepts: [
+      "Find with path compression",
+      "Union by rank",
+      "Detect cycles in undirected graphs",
+      "Connected components counting",
+    ],
+    timeToMaster: "3-4 days",
+    problemIds: ["num-connected-components", "redundant-connection", "accounts-merge", "graph-valid-tree"],
+  },
 ];
 
 export function getTopicBySlug(slug: string): Topic | undefined {

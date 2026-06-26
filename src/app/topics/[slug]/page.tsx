@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getTopicBySlug } from "@/data/topics";
-import { getProblemsByTopic } from "@/data/problems";
+import { getProblemById } from "@/data/problems";
 import { ProblemCard } from "@/components/ProblemCard";
 import { TopicTheory } from "@/components/TopicTheory";
 import { ArrowLeft, Clock, Lightbulb } from "lucide-react";
@@ -13,6 +13,7 @@ export function generateStaticParams() {
     { slug: "trees" }, { slug: "heap" }, { slug: "backtracking" },
     { slug: "graphs" }, { slug: "dynamic-programming" }, { slug: "greedy" },
     { slug: "intervals" }, { slug: "bit-manipulation" },
+    { slug: "trie" }, { slug: "design" }, { slug: "union-find" },
   ];
 }
 
@@ -25,7 +26,9 @@ export default async function TopicDetailPage({
   const topic = getTopicBySlug(slug);
   if (!topic) notFound();
 
-  const topicProblems = getProblemsByTopic(topic.id);
+  const topicProblems = topic.problemIds
+    .map((pid) => getProblemById(pid))
+    .filter((p): p is NonNullable<typeof p> => p != null);
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6">
@@ -72,7 +75,11 @@ export default async function TopicDetailPage({
         </h2>
         <div className="mt-4 grid gap-3 sm:grid-cols-2">
           {topicProblems.map((problem) => (
-            <ProblemCard key={problem.id} problem={problem} />
+            <ProblemCard
+              key={problem.id}
+              problem={problem}
+              href={`/problems/${problem.id}?topic=${topic.id}`}
+            />
           ))}
         </div>
       </div>

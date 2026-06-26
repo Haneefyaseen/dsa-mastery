@@ -5,11 +5,13 @@ import { usePathname } from "next/navigation";
 import {
   Brain,
   BookOpen,
+  Building2,
   Code2,
   LayoutDashboard,
   LogIn,
   LogOut,
   Route,
+  Server,
   Sparkles,
   User,
 } from "lucide-react";
@@ -22,6 +24,8 @@ const links = [
   { href: "/topics", label: "Topics", icon: BookOpen },
   { href: "/problems", label: "Problems", icon: Code2 },
   { href: "/patterns", label: "Patterns", icon: Sparkles },
+  { href: "/system-design", label: "System Design", icon: Server },
+  { href: "/interview-prep", label: "Interview Prep", icon: Building2 },
 ];
 
 export function Navbar() {

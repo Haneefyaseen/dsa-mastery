@@ -8,6 +8,8 @@ import { dpProblems } from "./dp";
 import { miscProblems } from "./misc";
 import { misc2Problems } from "./misc2";
 import { misc3Problems } from "./misc3";
+import { phase2Problems } from "./phase2";
+import { phase2bProblems } from "./phase2b";
 
 export const problems: Problem[] = [
   ...arrayProblems,
@@ -19,6 +21,8 @@ export const problems: Problem[] = [
   ...miscProblems,
   ...misc2Problems,
   ...misc3Problems,
+  ...phase2Problems,
+  ...phase2bProblems,
 ];
 
 export function getProblemById(id: string): Problem | undefined {

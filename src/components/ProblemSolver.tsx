@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { Problem, ProblemStatus } from "@/types";
 import { useAuth } from "@/contexts/AuthContext";
 import { DifficultyBadge } from "./DifficultyBadge";
@@ -24,9 +24,12 @@ export function ProblemSolver({ problem }: { problem: Problem }) {
   const { progress, updateStatus, updateNote, toggleBookmark } = useAuth();
   const status = progress.problems[problem.id] || "not_started";
   const bookmarked = progress.bookmarks.includes(problem.id);
-  const note = progress.notes[problem.id] || "";
+  const savedNote = progress.notes[problem.id] || "";
 
   const [lang, setLang] = useState<Lang>("javascript");
+  const [draftNote, setDraftNote] = useState(savedNote);
+  const [savingNote, setSavingNote] = useState(false);
+  const [noteSaved, setNoteSaved] = useState(false);
   const [code, setCode] = useState(problem.starterCode.javascript);
   const [showHints, setShowHints] = useState(false);
   const [hintIndex, setHintIndex] = useState(0);
@@ -34,7 +37,21 @@ export function ProblemSolver({ problem }: { problem: Problem }) {
   const [showApproach, setShowApproach] = useState(false);
   const [output, setOutput] = useState("");
 
+  const hasUnsavedNote = draftNote !== savedNote;
+
+  useEffect(() => {
+    setDraftNote(savedNote);
+    setNoteSaved(false);
+  }, [problem.id, savedNote]);
+
   const handleStatus = (s: ProblemStatus) => updateStatus(problem.id, s);
+
+  const handleSaveNote = async () => {
+    setSavingNote(true);
+    await updateNote(problem.id, draftNote);
+    setSavingNote(false);
+    setNoteSaved(true);
+  };
 
   const handleLangChange = (l: Lang) => {
     setLang(l);
@@ -152,10 +169,31 @@ export function ProblemSolver({ problem }: { problem: Problem }) {
         </div>
 
         <div>
-          <h3 className="mb-2 font-semibold">Your Notes</h3>
+          <div className="mb-2 flex items-center justify-between gap-2">
+            <h3 className="font-semibold">Your Notes</h3>
+            <div className="flex items-center gap-2">
+              {hasUnsavedNote && !savingNote && (
+                <span className="text-xs text-amber-400">Unsaved changes</span>
+              )}
+              {noteSaved && !hasUnsavedNote && (
+                <span className="text-xs text-emerald-400">Saved</span>
+              )}
+              <button
+                type="button"
+                onClick={handleSaveNote}
+                disabled={!hasUnsavedNote || savingNote}
+                className="rounded-lg bg-accent px-3 py-1.5 text-xs font-medium text-white hover:bg-accent-hover disabled:cursor-not-allowed disabled:opacity-50"
+              >
+                {savingNote ? "Saving..." : "Save Notes"}
+              </button>
+            </div>
+          </div>
           <textarea
-            value={note}
-            onChange={(e) => updateNote(problem.id, e.target.value)}
+            value={draftNote}
+            onChange={(e) => {
+              setDraftNote(e.target.value);
+              setNoteSaved(false);
+            }}
             placeholder="Write your approach, mistakes, or key insights..."
             className="h-24 w-full resize-none rounded-xl border border-border bg-card p-3 text-sm text-foreground placeholder:text-muted focus:border-accent focus:outline-none"
           />

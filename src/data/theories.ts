@@ -312,6 +312,57 @@ export const topicTheories: Record<string, TheorySection[]> = {
         "n & (n-1) clears the lowest set bit (count set bits). n & -n isolates the lowest set bit. Check power of 2: n > 0 && (n & (n-1)) === 0.",
     },
   ],
+  trie: [
+    {
+      title: "What is a Trie?",
+      content:
+        "A trie (prefix tree) stores strings character by character. Each path from root to node represents a prefix. Search, insert, and prefix queries are O(m) where m is word length — independent of how many words are stored.",
+    },
+    {
+      title: "When to Use a Trie",
+      content:
+        "Use when you need prefix matching, autocomplete, or dictionary lookups on a grid (Word Search II). If problems involve 'all words with this prefix' or 'search with wildcards', reach for a trie.",
+    },
+    {
+      title: "Trie + Backtracking",
+      content:
+        "Combine trie with DFS for board word search. Build trie from dictionary, then DFS on grid pruning branches when trie path doesn't exist. This avoids revisiting invalid paths.",
+    },
+  ],
+  design: [
+    {
+      title: "Design Problem Strategy",
+      content:
+        "Clarify required operations and their time complexity upfront. Choose the right combination of data structures (hash map + doubly linked list for LRU). Implement clean class interfaces before internals.",
+    },
+    {
+      title: "LRU Cache Pattern",
+      content:
+        "Hash map for O(1) lookup by key. Doubly linked list for O(1) move-to-front and eviction. On get/put: update list order; evict tail when over capacity.",
+    },
+    {
+      title: "Streaming Data Structures",
+      content:
+        "For median-from-stream use two heaps. For hit counter use queue of timestamps. For time-based KV store use hash map + binary search on sorted timestamps.",
+    },
+  ],
+  "union-find": [
+    {
+      title: "Union-Find Basics",
+      content:
+        "Track disjoint sets with parent array. Find returns set representative (with path compression). Union merges two sets (with rank/size optimization). Near O(1) amortized per operation.",
+    },
+    {
+      title: "When to Use Union-Find",
+      content:
+        "Connected components in undirected graphs, detecting cycles, dynamic connectivity, and grouping items that become connected over time (Accounts Merge).",
+    },
+    {
+      title: "Union-Find vs DFS",
+      content:
+        "If the graph is static and you need one-time connected components, DFS/BFS works. If edges arrive incrementally or you need 'are A and B connected?', union-find is cleaner and faster.",
+    },
+  ],
 };
 
 export function getTheoryForTopic(topicId: string): TheorySection[] {

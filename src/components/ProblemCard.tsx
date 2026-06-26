@@ -4,12 +4,18 @@ import { DifficultyBadge } from "./DifficultyBadge";
 import { getTopicById } from "@/data/topics";
 import { ChevronRight } from "lucide-react";
 
-export function ProblemCard({ problem }: { problem: Problem }) {
+export function ProblemCard({
+  problem,
+  href,
+}: {
+  problem: Problem;
+  href?: string;
+}) {
   const topic = getTopicById(problem.topicId);
 
   return (
     <Link
-      href={`/problems/${problem.id}`}
+      href={href ?? `/problems/${problem.id}?topic=${problem.topicId}`}
       className="group flex items-center justify-between rounded-xl border border-border bg-card p-4 transition-all hover:border-accent/40 hover:bg-card-hover"
     >
       <div className="min-w-0 flex-1">
